@@ -26,6 +26,7 @@ Both folders are identical.
 """
 
 import os, sys
+
 maxfileload = 1000000
 bulksize = 1024 * 500
 
