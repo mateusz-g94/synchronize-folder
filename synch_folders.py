@@ -4,9 +4,24 @@ Created on Sun Jun 30 13:34:05 2019
 
 @author: Mateusz
 
-Synchronize folders
+Synchronize folder pathTo with pathFrom; 
+Gets files and dirs from pathsFrom and if not exists in pathTo then copy to pathTo;
+Compare files in pathTo with pathFrom. If file in pathFrom is more recent then replace;
 
-## Develop: czy pliki sa takie same
+Usage:
+python synch_folders.py pathFrom pathTo [trace] [mode]
+trace: if 0 -> no trace, 1 -> print dirs, 2 -> print dirs, files, 3 -> print dirs, files, replaced files;
+Choses synchronization mode;
+    if -o : one side, then pathTo is synchronized with pathFrom
+    if -t : two sides, then pathTo is synchronized with pathFrom and vice versa
+
+Example:
+python synch_folders.py "C:/Folder1" "F:/Folder2" 0 -t
+
+Result:
+Both folders are identical.
+
+## Develop: czy pliki sa takie same?
 
 """
 
