@@ -112,7 +112,7 @@ def synch_mode(pathFrom, pathTo, trace = 0, mode = '-o'):
                 
 def start_synch():
     """
-    Get and verify directory name arguments, returns deafult None on errors
+    Get and verify directory names, command line arguments
     """
     # Get params 
     if len(sys.argv) == 3:
