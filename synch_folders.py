@@ -20,9 +20,6 @@ python synch_folders.py "C:/Folder1" "F:/Folder2" 0 -t
 
 Result:
 Both folders are identical.
-
-## Develop: czy pliki sa takie same?
-
 """
 
 import os, sys
