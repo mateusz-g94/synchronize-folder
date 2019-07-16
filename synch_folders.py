@@ -62,7 +62,22 @@ def reset_global_params():
     """
     global num_mk_dirs, num_copy_files, num_replaced_files, files_not_to_syn 
     num_mk_dirs = num_copy_files = num_replaced_files = 0
-    files_not_to_syn = []                                                       # Files that has been copied or replaced before and tehre is no need to synch
+    files_not_to_syn = []       
+
+def compare_files(file_path1, file_path2):
+    """
+    Return True if there is no diffrence between file1 and file2. 
+    Else False
+    """
+    file1 = open(file_path1, 'rb')
+    file2 = open(file_path2, 'rb')
+    while True:
+        bytes1 = file1.read(bulksize)
+        bytes2 = file2.read(bulksize)
+        if (not bytes1) and (not bytes2):
+            return True
+        if bytes1 != bytes2:
+            return False                                                        # Files that has been copied or replaced before and tehre is no need to synch
     
 def synch_folders(pathFrom, pathTo, trace = 0):
     """
@@ -91,11 +106,12 @@ def synch_folders(pathFrom, pathTo, trace = 0):
                 num_copy_files += 1
                 if trace > 1: print('File has been copied.. from',file_pathFrom,'to', file_pathTo)
             elif os.path.exists(file_pathTo) and (not compare_files_modification_time(file_pathTo, file_pathFrom)) and (file_pathTo not in files_not_to_syn):       # if file exists then compare last modification date this two files
-                os.remove(file_pathTo)
-                copyfile(file_pathFrom, file_pathTo)
-                files_not_to_syn.append(file_pathFrom)
-                num_replaced_files += 1
-                if trace > 2: print('File has been replaced', file_pathTo)
+                if not compare_files(file_pathTo, file_pathFrom):               # Compare files - replace only when difrences exist 
+                    os.remove(file_pathTo)
+                    copyfile(file_pathFrom, file_pathTo)
+                    files_not_to_syn.append(file_pathFrom)
+                    num_replaced_files += 1
+                    if trace > 2: print('File has been replaced', file_pathTo)
                 
 def synch_mode(pathFrom, pathTo, trace = 0, mode = '-o'):
     """
@@ -108,7 +124,7 @@ def synch_mode(pathFrom, pathTo, trace = 0, mode = '-o'):
     if mode == '-t':
         synch_folders(pathFrom = pathFrom, pathTo = pathTo, trace = trace)
         synch_folders(pathFrom = pathTo, pathTo = pathFrom, trace = trace)
-        
+              
                 
 def start_synch():
     """
