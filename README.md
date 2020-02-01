@@ -5,7 +5,9 @@ Get files and dirs from pathsFrom and if not exists in pathTo then copy to pathT
 Compare files in pathTo with pathFrom. If file in pathFrom is more recent then replace. </br>
 </br>
 ## Usage: </br>
-python synch_folders.py pathFrom pathTo [trace] [mode] </br></br>
+```bash
+python synch_folders.py pathFrom pathTo [trace] [mode]
+```
 trace:</br>
     0 : no trace </br>
     1 : print dirs </br>
@@ -18,4 +20,6 @@ mode: </br>
 </br></br>
 
 ## Example:
+```bash
 python synch_folders.py "C:/Folder1" "F:/Folder2" 0 -t
+```
